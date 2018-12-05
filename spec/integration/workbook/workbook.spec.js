@@ -92,7 +92,31 @@ describe('Workbook', function() {
         })
         .then(function(wb2) {
           var ws2 = wb2.getWorksheet('printHeader');
-          expect(ws2.pageSetup.printTitlesRow).to.equal('$1:$2');
+          expect(ws2.pageSetup.printTitles).to.deep.equal(['$1:$2']);
+        });
+    });
+
+    it('printTitles', function() {
+      var wb = new Excel.Workbook();
+      var ws = wb.addWorksheet('printTitles');
+
+      ws.getCell('A1').value = 'This is a header row repeated on every printed page';
+      ws.getCell('B2').value = 'This is a header row too';
+
+      for (var i = 0; i < 100; i++) {
+        ws.addRow(['not header row']);
+      }
+
+      ws.pageSetup.printTitles = ['1:2', 'A:A'];
+
+      return wb.xlsx.writeFile(TEST_XLSX_FILE_NAME)
+        .then(function() {
+          var wb2 = new Excel.Workbook();
+          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+        })
+        .then(function(wb2) {
+          var ws2 = wb2.getWorksheet('printTitles');
+          expect(ws2.pageSetup.printTitles).to.deep.equal([ '$1:$2', '$A:$A' ]);
         });
     });
 

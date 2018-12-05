@@ -746,6 +746,11 @@ export interface PageSetup {
 	 * Repeat specific rows on every printed page, e.g. `'1:3'`
 	 */
 	printTitlesRow: string;
+
+  /**
+   * Repeat specific rows or columns on every printed page, e.g. `'1:3'`
+   */
+  printTitles: string[];
 }
 
 export type AutoFilter = string | {
@@ -1079,7 +1084,7 @@ export interface Xlsx {
 
 	/**
 	 * read from a stream
-	 * @param stream 
+	 * @param stream
 	 */
 	read(stream: Stream): Promise<Workbook>;
 
