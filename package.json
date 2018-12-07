@@ -101,6 +101,7 @@
   "main": "./dist/es5/index.js",
   "types": "./index.d.ts",
   "files": [
+    "lib",
     "dist",
     "LICENSE",
     "README.md",
