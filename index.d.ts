@@ -273,6 +273,19 @@ export interface Margins {
 	footer: number;
 }
 
+export interface HeaderFooter {
+  header?: Header;
+  footer?: Footer;
+}
+
+export interface Header {
+    odd: string;
+}
+
+export interface Footer {
+    odd: string;
+}
+
 export const enum ReadingOrder {
 	LeftToRight = 1,
 	RightToLeft = 2,
@@ -609,6 +622,11 @@ export interface PageSetup {
 	 * Whitespace on the borders of the page. Units are inches.
 	 */
 	margins: Margins;
+
+  /**
+   * Header and Footer
+   */
+  headerFooter: HeaderFooter;
 
 	/**
 	 * Orientation of the page - i.e. taller (`'portrait'`) or wider (`'landscape'`).
@@ -1079,7 +1097,7 @@ export interface Xlsx {
 
 	/**
 	 * read from a stream
-	 * @param stream 
+	 * @param stream
 	 */
 	read(stream: Stream): Promise<Workbook>;
 
