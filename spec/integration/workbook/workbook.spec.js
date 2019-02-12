@@ -123,13 +123,13 @@ describe('Workbook', function() {
           expect(ws2.pageSetup.headerFooter).to.deep.equal({
             header: {
               odd: { raw: 'test header' },
-              even: {},
-              first: {}
+              even: null,
+              first: null
             },
             footer: {
               odd: { raw: 'test footer' },
-              even: {},
-              first: {}
+              even: null,
+              first: null
             }
           });
         });
@@ -165,12 +165,51 @@ describe('Workbook', function() {
             header: {
               odd: { raw: 'test header' },
               even: { raw: 'even header' },
-              first: {}
+              first: null
             },
             footer: {
               odd: { raw: 'test footer' },
               even: { raw: 'even footer'},
-              first: {}
+              first: null
+            }
+          });
+        });
+    });
+
+    it('headerFooter - first only', function() {
+      var wb = new Excel.Workbook();
+      var ws = wb.addWorksheet('withHeaderFooter');
+
+      for (var i = 0; i < 5; i++) {
+        ws.addRow(['dummy cell content']);
+      }
+
+      ws.pageSetup.headerFooter = {
+        header: {
+          first: { raw: 'first header' }
+        },
+        footer: {
+          first: { raw: 'first footer'}
+        }
+      };
+
+      return wb.xlsx.writeFile(TEST_XLSX_FILE_NAME)
+        .then(function() {
+          var wb2 = new Excel.Workbook();
+          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+        })
+        .then(function(wb2) {
+          var ws2 = wb2.getWorksheet('withHeaderFooter');
+          expect(ws2.pageSetup.headerFooter).to.deep.equal({
+            header: {
+              odd: null,
+              even: null,
+              first: { raw: 'first header' }
+            },
+            footer: {
+              odd: null,
+              even: null,
+              first: { raw: 'first footer'}
             }
           });
         });
