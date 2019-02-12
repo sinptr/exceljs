@@ -131,8 +131,8 @@ describe('Workbook', function() {
               even: null,
               first: null
             },
-            differentOddEven: '0',
-            differentFirst: '0'
+            differentOddEven: false,
+            differentFirst: false
           });
         });
     });
@@ -174,8 +174,8 @@ describe('Workbook', function() {
               even: { raw: 'even footer'},
               first: null
             },
-            differentOddEven: '1',
-            differentFirst: '0'
+            differentOddEven: true,
+            differentFirst: false
           });
         });
     });
@@ -215,8 +215,8 @@ describe('Workbook', function() {
               even: null,
               first: { raw: 'first footer'}
             },
-            differentOddEven: '0',
-            differentFirst: '1'
+            differentOddEven: false,
+            differentFirst: true
           });
         });
     });
