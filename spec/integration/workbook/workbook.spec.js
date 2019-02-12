@@ -130,7 +130,9 @@ describe('Workbook', function() {
               odd: { raw: 'test footer' },
               even: null,
               first: null
-            }
+            },
+            differentOddEven: '0',
+            differentFirst: '0'
           });
         });
     });
@@ -171,7 +173,9 @@ describe('Workbook', function() {
               odd: { raw: 'test footer' },
               even: { raw: 'even footer'},
               first: null
-            }
+            },
+            differentOddEven: '1',
+            differentFirst: '0'
           });
         });
     });
@@ -210,7 +214,9 @@ describe('Workbook', function() {
               odd: null,
               even: null,
               first: { raw: 'first footer'}
-            }
+            },
+            differentOddEven: '0',
+            differentFirst: '1'
           });
         });
     });
