@@ -346,13 +346,15 @@ export interface CellHyperlinkValue {
 
 export interface CellFormulaValue {
 	formula: string;
-	result: number | string | Date;
+	result?: number | string | Date | { error: CellErrorValue };
+	date1904: boolean;
 }
 
 export interface CellSharedFormulaValue {
 	sharedFormula: string;
 	readonly formula?: string;
-	result: number | string | Date;
+	result?: number | string | Date| { error: CellErrorValue };
+	date1904: boolean;
 }
 
 export const enum ValueType {
@@ -782,10 +784,31 @@ export interface Image {
 	filename?: string;
 	buffer?: Buffer;
 }
+export interface IAnchor {
+    col: number;
+    row: number;
+    nativeCol: number;
+    nativeRow: number;
+    nativeColOff: number;
+    nativeRowOff: number;
+}
+export class Anchor implements IAnchor{
+    col: number;
+    nativeCol: number;
+    nativeColOff: number;
+    nativeRow: number;
+    nativeRowOff: number;
+    row: number;
 
+    private readonly colWidth: number;
+    private readonly rowHeight: number;
+    worksheet: Worksheet;
+    
+    constructor(model: IAnchor|object = {});
+}
 export interface ImageRange {
-	tl: { col: number; row: number };
-	br: { col: number; row: number };
+	tl: { col: number; row: number } | Anchor;
+	br: { col: number; row: number } | Anchor;
 }
 
 export interface Range extends Location {
