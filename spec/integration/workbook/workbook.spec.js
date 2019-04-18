@@ -517,6 +517,7 @@ describe('Workbook', function() {
       'splice.rows.insertFewer',
       'splice.rows.insertSame',
       'splice.rows.insertMore',
+      'splice.rows.insertStyle',
       'splice.columns.removeOnly',
       'splice.columns.insertFewer',
       'splice.columns.insertSame',
