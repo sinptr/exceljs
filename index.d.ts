@@ -226,6 +226,7 @@ export interface Font {
 	bold: boolean;
 	italic: boolean;
 	underline: boolean | 'none' | 'single' | 'double' | 'singleAccounting' | 'doubleAccounting';
+  vertAlign: 'superscript' | 'subscript';
 	strike: boolean;
 	outline: boolean;
 }
@@ -803,12 +804,17 @@ export class Anchor implements IAnchor{
     private readonly colWidth: number;
     private readonly rowHeight: number;
     worksheet: Worksheet;
-    
-    constructor(model: IAnchor|object = {});
+
+    constructor(model?: IAnchor|object);
 }
 export interface ImageRange {
 	tl: { col: number; row: number } | Anchor;
 	br: { col: number; row: number } | Anchor;
+}
+
+export interface ImagePosition {
+	tl: { col: number; row: number };
+	ext: { width: number; height: number };
 }
 
 export interface Range extends Location {
@@ -884,7 +890,7 @@ export interface Worksheet {
 	readonly workbook: Workbook;
 	readonly hasMerges: boolean;
 
-	readonly dimensions: Range[];
+	readonly dimensions: Range;
 	/**
 	 * Contains information related to how a worksheet is printed
 	 */
@@ -1069,7 +1075,7 @@ export interface Worksheet {
 	 * Using the image id from `Workbook.addImage`,
 	 * embed an image within the worksheet to cover a range
 	 */
-	addImage(imageId: number, range: string | { editAs?: string; } & ImageRange): void;
+	addImage(imageId: number, range: string | { editAs?: string; } & ImageRange | { editAs?: string; } & ImagePosition): void;
 
 	getImages(): Array<{
 		type: 'image',
