@@ -79,7 +79,7 @@ utils.inherits(WorkSheetXform, BaseXform, {
     function nextRid(r) {
       return 'rId' + (r.length + 1);
     }
-    var rId;
+    var rId = void 0;
     model.hyperlinks.forEach(function (hyperlink) {
       rId = nextRid(rels);
       hyperlink.rId = rId;
@@ -92,7 +92,7 @@ utils.inherits(WorkSheetXform, BaseXform, {
     });
 
     var drawingRelsHash = [];
-    var bookImage;
+    var bookImage = void 0;
     model.media.forEach(function (medium) {
       if (medium.type === 'background') {
         rId = nextRid(rels);
@@ -142,7 +142,6 @@ utils.inherits(WorkSheetXform, BaseXform, {
       }
     });
   },
-
   render: function render(xmlStream, model) {
     xmlStream.openXml(XmlStream.StdDocAttributes);
     xmlStream.openNode('worksheet', WorkSheetXform.WORKSHEET_ATTRIBUTES);
@@ -183,13 +182,12 @@ utils.inherits(WorkSheetXform, BaseXform, {
     this.map.pageMargins.render(xmlStream, pageMarginsModel);
     this.map.printOptions.render(xmlStream, printOptionsModel);
     this.map.pageSetup.render(xmlStream, model.pageSetup);
+    this.map.headerFooter.render(xmlStream, headerFooterModel); // NoteL must be after pageSetup
     this.map.rowBreaks.render(xmlStream, model.rowBreaks);
     this.map.drawing.render(xmlStream, model.drawing); // Note: must be after rowBreaks
     this.map.picture.render(xmlStream, model.background); // Note: must be after drawing
-    this.map.headerFooter.render(xmlStream, headerFooterModel);
     xmlStream.closeNode();
   },
-
   parseOpen: function parseOpen(node) {
     if (this.parser) {
       this.parser.parseOpen(node);
@@ -261,7 +259,6 @@ utils.inherits(WorkSheetXform, BaseXform, {
         return true;
     }
   },
-
   reconcile: function reconcile(model, options) {
     // options.merges = new Merges();
     // options.merges.reconcile(model.mergeCells, model.rows);
